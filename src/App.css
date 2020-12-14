@@ -1,4 +1,9 @@
-.podlet-template {
+.podlet-vta-okonomi {
     margin: 20px;
     text-align: center;
 }
+.okonomi-dagpenger-rad {
+    display: flex;
+    justify-content: space-between;
+}
+

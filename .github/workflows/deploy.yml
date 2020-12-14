@@ -6,11 +6,11 @@ on:
       - main
 
 env:
-  IMAGE: docker.pkg.github.com/${{ github.repository }}/podlet-template:${{ github.sha }}
-  LATEST_IMAGE: docker.pkg.github.com/${{ github.repository }}/podlet-template:latest
-  BASE_PATH: /arbeid/podlet-template
-  IMAGE_CACHE_RUNTIME: docker.pkg.github.com/${{ github.repository }}/podlet-template-build-cache-runtime
-  IMAGE_CACHE_BUILDER: docker.pkg.github.com/${{ github.repository }}/podlet-template-build-cache-builder
+  IMAGE: docker.pkg.github.com/${{ github.repository }}/podlet-vta-okonomi:${{ github.sha }}
+  LATEST_IMAGE: docker.pkg.github.com/${{ github.repository }}/podlet-vta-okonomi:latest
+  BASE_PATH: /arbeid/podlet-vta-okonomi
+  IMAGE_CACHE_RUNTIME: docker.pkg.github.com/${{ github.repository }}/podlet-vta-okonomi-build-cache-runtime
+  IMAGE_CACHE_BUILDER: docker.pkg.github.com/${{ github.repository }}/podlet-vta-okonomi-build-cache-builder
 
 jobs:
   test:
@@ -104,22 +104,22 @@ jobs:
           docker pull ${{ env.IMAGE_CACHE_RUNTIME }} || true
           docker build . -t ${{ env.IMAGE_CACHE_RUNTIME }} --target runtime --build-arg BUILDKIT_INLINE_CACHE=1 --cache-from=${{ env.IMAGE_CACHE_RUNTIME }}
           docker push ${{ env.IMAGE_CACHE_RUNTIME }}
-#  deploy-dev:
-#    name: Deploy to dev
-#    needs: [ test, build ]
-#    if: github.ref == 'refs/heads/main'
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Fetch NAIS yaml
-#        uses: actions/download-artifact@v1
-#        with:
-#          name: nais-yaml
-#          path: nais
-#
-#      - uses: nais/deploy/actions/deploy@v1
-#        env:
-#          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-#          CLUSTER: dev-gcp
-#          RESOURCE: nais/nais.yaml
-#          VARS: nais/dev/vars.yaml
-#          PRINT_PAYLOAD: true
+  deploy-dev:
+    name: Deploy to dev
+    needs: [ test, build ]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch NAIS yaml
+        uses: actions/download-artifact@v1
+        with:
+          name: nais-yaml
+          path: nais
+
+      - uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-gcp
+          RESOURCE: nais/nais.yaml
+          VARS: nais/dev/vars.yaml
+          PRINT_PAYLOAD: true
