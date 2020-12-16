@@ -40,21 +40,27 @@
     "prettier": "2.2.1",
     "react-scripts": "4.0.1",
     "types": "0.1.1",
+    "eslint-plugin-jsx-a11y": "6.4.1",
     "typescript": "4.1.3"
   },
   "scripts": {
     "start": "NODE_ENV=development craco start",
     "build": "craco build",
-    "test": "craco test",
-    "test-ci": "CI=true craco test",
+    "test": "npm run lint && craco test",
+    "test-ci": "npm run lint && CI=true craco test",
     "refresh": "rm -rf node_modules && rm package-lock.json && npm i",
     "typeCheck": "tsc",
+    "lint": "eslint --ext .tsx,.js,.ts,.jsx src",
     "podlet": "node podlet.js"
   },
   "eslintConfig": {
+    "plugins": [
+      "jsx-a11y"
+    ],
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "plugin:jsx-a11y/recommended"
     ]
   },
   "browserslist": {
