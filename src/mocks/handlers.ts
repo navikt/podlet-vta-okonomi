@@ -1,6 +1,7 @@
 import get from "./msw-utils";
-import navn from "./person-navn.json";
+import authinfo from "./auth.json";
+import brukerinfo from "./brukerinfo.json";
+import oppfolginginfo from "./oppfolging.json";
+import { authUrl, brukerinfoUrl, oppfolgingUrl } from "../url";
 
-export const handlers = [
-  get("https://api.nav.no/dittnav-api/personalia/navn", navn),
-];
+export const handlers = [get(authUrl, authinfo), get(brukerinfoUrl, brukerinfo), get(oppfolgingUrl, oppfolginginfo)];

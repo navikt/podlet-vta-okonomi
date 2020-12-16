@@ -44,7 +44,7 @@ podlet.proxy({
 
 podlet.proxy({
   name: "api-veilarbregistrering",
-  target: "https://pto-proxy.dev.nav.no/proxy/veilarboppfolging/api/oppfolging",
+  target: "https://pto-proxy.dev.nav.no/proxy/veilarbregistrering/api/startregistrering",
 });
 
 app.get(`${basePath}${podlet.content()}`, (req, res) => {

@@ -8,11 +8,11 @@ function getEnvironment(): string {
 
 //TODO: Bytte om URL-ene under slik at de er rett. Nå er dev-endepunktet satt til 'production' pga deploy til NAIS
 const OPPFOLGING_URL: any = {
-  development: "",
+  development: "/veilarboppfolging/api/oppfolging",
   production: "/person/layout-dittnav/podium-resource/podlet-vta-okonomi/api-oppfolging",
 };
 const BRUKERINFO_URL: any = {
-  development: "",
+  development: "/veilarbregistrering/api/startregistrering",
   production: "/person/layout-dittnav/podium-resource/podlet-vta-okonomi/api-veilarbregistrering",
 };
 
