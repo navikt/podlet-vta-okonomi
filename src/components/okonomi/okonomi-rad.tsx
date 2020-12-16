@@ -9,6 +9,20 @@ import useSWR from "swr";
 import OkonomiRadDagpenger from "./okonomi-rad-dagpenger";
 import { authUrl, brukerinfoUrl, oppfolgingUrl } from "../../url";
 
+interface Authdata {
+  authenticated: boolean;
+  securityLevel: "3" | "4";
+  name: string;
+}
+
+interface Oppfolgingdata {
+  underOppfolging: string;
+}
+
+interface Brukerdata {
+  erSykmeldtMedArbeidsgiver: boolean;
+}
+
 const fetcher = async (url: string) => {
   const response = await fetch(url, { method: "GET", credentials: "include" });
   const data = await response.json();
@@ -16,13 +30,17 @@ const fetcher = async (url: string) => {
 };
 
 const OkonomiRad = () => {
-  const { data: auth } = useSWR(authUrl, fetcher);
-  const isLevel4 = auth.securityLevel === "Level4";
+  const { data: auth } = useSWR<Authdata>(authUrl, fetcher);
+  const isLevel4 = auth?.securityLevel === "4";
 
-  const { data: underOppfolging } = useSWR(oppfolgingUrl, fetcher);
-  const { data: erSykmeldtMedArbeidsgiver } = useSWR(brukerinfoUrl, fetcher);
+  const { data: oppfolgingsdata } = useSWR<Oppfolgingdata>(oppfolgingUrl, fetcher);
+  const underOppfolging = oppfolgingsdata?.underOppfolging;
 
-  const kanViseKomponent = isLevel4 && underOppfolging && erSykmeldtMedArbeidsgiver;
+  const { data: sykemeldtdata } = useSWR<Brukerdata>(brukerinfoUrl, fetcher);
+  const erSykmeldtMedArbeidsgiver = sykemeldtdata?.erSykmeldtMedArbeidsgiver;
+
+  const kanViseKomponent = isLevel4 && underOppfolging;
+
   return !kanViseKomponent ? null : !erSykmeldtMedArbeidsgiver ? (
     <OkonomiRadDagpenger />
   ) : (

@@ -3,7 +3,7 @@ import { Knapp } from "nav-frontend-knapper";
 import Panel from "nav-frontend-paneler";
 import { Normaltekst, Systemtittel } from "nav-frontend-typografi";
 import "./dagpenger.less";
-import { dagpengerSoknadLenke } from "../../lenker";
+//import { dagpengerSoknadLenke } from "../../lenker";
 
 const Dagpenger = () => {
   /* const amplitudeAktivitetsData = React.useContext(AmplitudeAktivitetContext);
