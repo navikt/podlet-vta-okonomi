@@ -1,21 +1,31 @@
 import * as React from "react";
 import OkonomiPanel from "./okonomi-panel";
 import "./okonomi-rad.less";
-
 import DagpengerBilde from "./dagpenger";
 import NyRettTilSykepengerBilde from "./ny-rett-til-sykepenger";
 import OkonomiskSosialhjelpBilde from "./okonomisk-sosialhjelp";
 import { dagpengerLesmerLenke, sosialhjelpLenke, sykepengerLenke } from "../../lenker";
-
+import useSWR from "swr";
 import OkonomiRadDagpenger from "./okonomi-rad-dagpenger";
+import { authUrl, brukerinfoUrl, oppfolgingUrl } from "../../url";
+
+const fetcher = async (url: string) => {
+  const response = await fetch(url, { method: "GET", credentials: "include" });
+  const data = await response.json();
+  return data;
+};
 
 const OkonomiRad = () => {
-  /*const { underOppfolging } = React.useContext(UnderOppfolgingContext).data;
-    const { erSykmeldtMedArbeidsgiver } = React.useContext(BrukerInfoContext).data;
-    const { securityLevel } = React.useContext(AutentiseringContext).data;
-    const isLevel4 = securityLevel === InnloggingsNiva.LEVEL_4;
-    const kanViseKomponent = isLevel4 && underOppfolging && erSykmeldtMedArbeidsgiver;
-    return !kanViseKomponent ? null :*/ return (
+  const { data: auth } = useSWR(authUrl, fetcher);
+  const isLevel4 = auth.securityLevel === "Level4";
+
+  const { data: underOppfolging } = useSWR(oppfolgingUrl, fetcher);
+  const { data: erSykmeldtMedArbeidsgiver } = useSWR(brukerinfoUrl, fetcher);
+
+  const kanViseKomponent = isLevel4 && underOppfolging && erSykmeldtMedArbeidsgiver;
+  return !kanViseKomponent ? null : !erSykmeldtMedArbeidsgiver ? (
+    <OkonomiRadDagpenger />
+  ) : (
     <div className="okonomi-rad blokk-l">
       <OkonomiPanel
         tittel="Dagpenger hvis du blir arbeidsledig"

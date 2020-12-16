@@ -37,6 +37,16 @@ app.use("/assets", express.static("./build/"));
 app.use(`${basePath}/static`, express.static("./build/static"));
 app.use(`${basePath}/assets`, express.static("./build/"));
 
+podlet.proxy({
+  name: "api-oppfolging",
+  target: "https://pto-proxy.dev.nav.no/proxy/veilarboppfolging/api/oppfolging",
+});
+
+podlet.proxy({
+  name: "api-veilarbregistrering",
+  target: "https://pto-proxy.dev.nav.no/proxy/veilarboppfolging/api/oppfolging",
+});
+
 app.get(`${basePath}${podlet.content()}`, (req, res) => {
   res.status(200).podiumSend(`<div id="${podletName}"></div>`);
 });

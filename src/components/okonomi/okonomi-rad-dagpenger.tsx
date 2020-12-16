@@ -7,10 +7,6 @@ import SjekkKontonummer from "../paminnelser/sjekk-kontonummer";
 import TrekkDagpengeSoknad from "../meldinger/trekk-dp-soknad";
 
 const OkonomiRadDagpenger = () => {
-  // const { underOppfolging } = React.useContext(UnderOppfolgingContext).data;
-  //const { erSykmeldtMedArbeidsgiver } = React.useContext(BrukerInfoContext).data;
-  //const kanViseKomponent = underOppfolging && !erSykmeldtMedArbeidsgiver;
-  //return !kanViseKomponent ? null :
   return (
     <Rad>
       <Systemtittel tag="h2" className="dagpenger__heading blokk-s">
