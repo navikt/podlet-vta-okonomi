@@ -37,7 +37,7 @@ app.use("/assets", express.static("./build/"));
 app.use(`${basePath}/static`, express.static("./build/static"));
 app.use(`${basePath}/assets`, express.static("./build/"));
 
-const proxyBaseUrl = "http://pto-proxy.pto.svc.nais.local";
+const proxyBaseUrl = "https://pto-proxy.dev.intern.nav.no";
 
 podlet.proxy({
   name: "api-oppfolging",
