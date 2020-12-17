@@ -37,14 +37,16 @@ app.use("/assets", express.static("./build/"));
 app.use(`${basePath}/static`, express.static("./build/static"));
 app.use(`${basePath}/assets`, express.static("./build/"));
 
+const proxyBaseUrl = "http://pto-proxy.pto.svc.nais.local";
+
 podlet.proxy({
   name: "api-oppfolging",
-  target: "https://pto-proxy.dev.nav.no/proxy/veilarboppfolging/api/oppfolging",
+  target: `${proxyBaseUrl}/proxy/veilarboppfolging/api/oppfolging`,
 });
 
 podlet.proxy({
   name: "api-veilarbregistrering",
-  target: "https://pto-proxy.dev.nav.no/proxy/veilarbregistrering/api/startregistrering",
+  target: `${proxyBaseUrl}/proxy/veilarbregistrering/api/startregistrering`,
 });
 
 app.get(`${basePath}${podlet.content()}`, (req, res) => {
