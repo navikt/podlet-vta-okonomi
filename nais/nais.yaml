@@ -40,3 +40,4 @@ spec:
     outbound:
       external:
         - host: api.amplitude.com
+        - host: sentry.gc.nav.no
