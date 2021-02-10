@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === "development") {
   const { worker } = require("./mocks/browser");
   worker.start();
 } else {
-  Sentry.init({ dsn: "https://c24577bb13734aaeb8968748ec67a24f@sentry.gc.nav.no/59" });
+  Sentry.init({ dsn: "https://ced9162846f34c688ac4e07526985601@sentry.gc.nav.no/65" });
 }
 
 ReactDOM.render(
