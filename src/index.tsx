@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import * as Sentry from "@sentry/browser";
 import "./index.css";
 import App from "./App";
 //import reportWebVitals from "./reportWebVitals";
@@ -8,8 +7,6 @@ import App from "./App";
 if (process.env.NODE_ENV === "development") {
   const { worker } = require("./mocks/browser");
   worker.start();
-} else {
-  Sentry.init({ dsn: "https://ced9162846f34c688ac4e07526985601@sentry.gc.nav.no/65" });
 }
 
 ReactDOM.render(
